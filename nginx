@@ -1,0 +1,31 @@
+####Readme File
+We have created following structure for nginx
+/data/nginx/
+/data/nginx/html - to store the source code
+/data/nginx/config - To store the config
+/data/nginx/logs - To store the nginx access and error logs
+
+
+###Create Dockerfile inside mount path 
+/data/nginx/Dockerfile
+
+FROM nginx
+RUN rm /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY html /usr/share/nginx/html
+COPY config /etc/nginx
+EXPOSE 80
+
+#Copy the Config to /data/nginx/conf folder
+download latest config from digital ocean.
+
+if not than launch one nginx docker by "docker run -p 80:80 -d nginx" 
+copy by this command. docker cp d362659da5fc:/etc/nginx/ /data/nginx/config/
+
+Execute below command from docker file location
+docker build -t prod-nginx-v1 .
+
+#Run Docker 
+docker run -p 80:80 --name prod-nginx -v /data/nginx/logs:/var/log/nginx -v /data/nginx/html:/usr/share/nginx/html:ro -v /data/nginx/config:/etc/nginx:ro -d prod-nginx-v1
+
+
+
