@@ -1,12 +1,22 @@
 version: "3.6"
 services:
- fe-nginx:
-  build: ./nginx
-  container_name: prod-nginx
-  volumes:
-          - ./nginx/logs:/var/log/nginx:rw
-          - ./nginx/config:/etc/nginx:ro
-          - ./nginx/src:/usr/share/nginx/html:ro
-  ports:
-          - "80:80"
-  restart: "always"
+#  appnode-nginx:
+#    build: ./nginx
+#    container_name: prod-appnode-nginx
+#    volumes:
+#            - ./nginx/logs:/var/log/nginx:rw
+#            - ./nginx/config:/etc/nginx:ro
+#            - ./nginx/src:/usr/share/nginx/html:ro
+#    ports:
+#            - "80:80"
+#    restart: "always"
+  appnode-wso2am:
+    image: wso2/wso2am:latest
+    container_name: prod-appnode-wso2am
+    volumes:
+        -   ./wso2am/repository:${WSO2_SERVER_HOME}/repository
+    ports:
+        - "8280:8280"
+        - "8243:8243"
+        - "9443:9443"
+    restart: "always"
