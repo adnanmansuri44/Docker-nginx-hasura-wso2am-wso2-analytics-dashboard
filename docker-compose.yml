@@ -1,0 +1,12 @@
+version: "3.6"
+services:
+ fe-nginx:
+  build: ./nginx
+  container_name: prod-nginx
+  volumes:
+          - ./nginx/logs:/var/log/nginx:rw
+          - ./nginx/config:/etc/nginx:ro
+          - ./nginx/src:/usr/share/nginx/html:ro
+  ports:
+          - "80:80"
+  restart: "always"
